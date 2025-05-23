@@ -14,10 +14,13 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-} from "motion/react";
+} from "framer-motion";
 
 import { useRef, useState } from "react";
-
+type MyComponentProps = {
+  className?: string;
+  // other props
+};
 export const FloatingDock = ({
   items,
   desktopClassName,
@@ -99,10 +102,6 @@ const FloatingDockDesktop = ({
 }) => {
   let mouseX = useMotionValue(Infinity);
 
-  // Optionally, split items into groups for dividers
-  // Example: const groups = [[...firstGroup], [...secondGroup]];
-  // For now, treat all as one group
-
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -114,16 +113,15 @@ const FloatingDockDesktop = ({
       )}
     >
       {items.map((item, idx) => (
-        <>
+        <React.Fragment key={item.title}>
           <IconContainer
             mouseX={mouseX}
-            key={item.title}
             {...item}
             icon={React.cloneElement(item.icon as React.ReactElement, { className: "text-white w-6 h-6" })}
           />
           {/* Example divider after 2nd icon */}
           {/* {idx === 1 && <div className="h-6 w-px bg-neutral-700 mx-2" />} */}
-        </>
+        </React.Fragment>
       ))}
     </motion.div>
   );
