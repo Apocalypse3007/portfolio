@@ -3,7 +3,7 @@ import Experience from "../components/Experience";
 import Education from "../components/Education";
 import Skills from "../components/Skills";
 import SocialBar from "../components/SocialBar";
-import ThemeToggle from "./theme-toggle";
+
 
 
 /**
@@ -13,7 +13,6 @@ import ThemeToggle from "./theme-toggle";
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 md:px-0">
-      <ThemeToggle />
       {/* About section */}
       <section className="w-full max-w-2xl mt-8">
         <About />
