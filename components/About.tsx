@@ -1,6 +1,7 @@
 "use client";
 import { Avatar } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 
 export default function About() {
@@ -34,10 +35,12 @@ export default function About() {
         {/* Right: Avatar image */}
         <div className="flex-shrink-0 flex justify-center md:justify-center items-center w-full md:w-auto md:mt-2">
           <Avatar className="w-32 h-32 border-4 border-white bg-black">
-            <img
+            <Image
               src="/pfp.jpg"
               alt="Profile avatar"
               className="rounded-full object-cover"
+              width={128}
+              height={128}
             />
           </Avatar>
         </div>
