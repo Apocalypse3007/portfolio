@@ -17,6 +17,9 @@ import {
 } from "framer-motion";
 
 import { useRef, useState } from "react";
+
+type IconProps = { className?: string };
+
 export const FloatingDock = ({
   items,
   desktopClassName,
@@ -148,7 +151,7 @@ const FloatingDockDesktop = ({
           <IconContainer
             mouseX={mouseX}
             {...item}
-            icon={React.cloneElement(item.icon as React.ReactElement<any>, { className: "text-white w-6 h-6" })}
+            icon={React.cloneElement(item.icon as React.ReactElement<IconProps>, { className: "text-white w-6 h-6" })}
           />
           {/* Example divider after 2nd icon */}
           {/* {idx === 1 && <div className="h-6 w-px bg-neutral-700 mx-2" />} */}
@@ -231,13 +234,11 @@ function IconContainer({
           className="flex items-center justify-center"
         >
           {React.isValidElement(icon)
-            ? React.cloneElement(icon as React.ReactElement<any>, {
-                // Ensure icon props are properly typed by checking for className property
+            ? React.cloneElement(icon as React.ReactElement<IconProps>, {
                 className: [
                   (icon.props as { className?: string })?.className || "",
                   "text-white w-8 h-8"
                 ].join(" ").trim()
-                // Don't spread icon.props since it may not be an object type
               })
             : icon}
         </motion.div>
