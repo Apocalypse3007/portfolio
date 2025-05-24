@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
-
+import Image from "next/image";
 export default function Education() {
   return (
     <Card className="bg-transparent border-none shadow-none">
@@ -9,7 +9,7 @@ export default function Education() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="w-12 h-12">
-              <img src="college.png" alt="Mumbai University logo" />
+              <Image src="/college.png" alt="College logo" width={48} height={48} />
             </Avatar>
             <div>
               <div className="font-semibold text-white">IIIT Delhi</div>

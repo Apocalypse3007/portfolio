@@ -1,13 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 
-/**
- * Experience section: List of jobs/roles
- */
+
 const experiences = [
   {
     company: "Camarin AI",
-    logo: "/company.jpg", // Place your logo in public/
+    logo: "/company.jpg", 
     role: "Full Stack Intern",
     date: "December 2024 - January 2025",
   },

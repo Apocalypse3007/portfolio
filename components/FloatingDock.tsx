@@ -17,10 +17,6 @@ import {
 } from "framer-motion";
 
 import { useRef, useState } from "react";
-type MyComponentProps = {
-  className?: string;
-  // other props
-};
 export const FloatingDock = ({
   items,
   desktopClassName,
@@ -101,41 +97,41 @@ const FloatingDockDesktop = ({
   className?: string;
 }) => {
   const mouseX = useMotionValue(Infinity);
-  const ref = useRef<HTMLDivElement>(null);
-  const distance = useTransform(mouseX, (val) => {
-    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
-  });
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
-  const heightTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20],
-  );
-  const width = useSpring(widthTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  const height = useSpring(heightTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  const widthIcon = useSpring(widthTransformIcon, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  const heightIcon = useSpring(heightTransformIcon, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
+  // const ref = useRef<HTMLDivElement>(null);
+  // const distance = useTransform(mouseX, (val) => {
+  //   const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+  //   return val - bounds.x - bounds.width / 2;
+  // });
+  // const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  // const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  // const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  // const heightTransformIcon = useTransform(
+  //   distance,
+  //   [-150, 0, 150],
+  //   [20, 40, 20],
+  // );
+  // const width = useSpring(widthTransform, {
+  //   mass: 0.1,
+  //   stiffness: 150,
+  //   damping: 12,
+  // });
+  // const height = useSpring(heightTransform, {
+  //   mass: 0.1,
+  //   stiffness: 150,
+  //   damping: 12,
+  // });
+  // const widthIcon = useSpring(widthTransformIcon, {
+  //   mass: 0.1,
+  //   stiffness: 150,
+  //   damping: 12,
+  // });
+  // const heightIcon = useSpring(heightTransformIcon, {
+  //   mass: 0.1,
+  //   stiffness: 150,
+  //   damping: 12,
+  // });
 
-  const [hovered, setHovered] = useState(false);
+  // const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
