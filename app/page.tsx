@@ -14,24 +14,24 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 md:px-0">
       {/* About section */}
-      <section className="w-full max-w-2xl mt-8">
+      <div className="w-full max-w-2xl mt-8">
         <About />
-      </section>
+      </div>
 
       {/* Experience section */}
-      <section className="w-full max-w-2xl mt-12">
+      <div className="w-full max-w-2xl mt-12">
         <Experience />
-      </section>
+      </div>
 
       {/* Education section */}
-      <section className="w-full max-w-2xl mt-12">
+      <div className="w-full max-w-2xl mt-12">
         <Education />
-      </section>
+      </div>
 
       {/* Skills section */}
-      <section className="w-full max-w-2xl mt-12">
+      <div className="w-full max-w-2xl mt-12">
         <Skills />
-      </section>
+      </div>
 
       {/* Social/contact bar at the bottom */}
       <div className="w-full max-w-2xl mt-16 mb-8">

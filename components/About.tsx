@@ -13,23 +13,23 @@ export default function About() {
           <h1 className="text-5xl md:text-6xl text-white font-semibold tracking-tight text-center md:text-left mb-2 text-black">
             Hi, Anany here
           </h1>
-          <p className="text-xl text-center md:text-left mb-4 md:mb-0 text-gray-200">
+          <div className="text-xl text-center md:text-left mb-4 md:mb-0 text-gray-200">
             I do code a little
-          </p>
+          </div>
           <div className="mt-6 w-full">
             <h2 className="text-2xl font-bold mb-2  text-gray-200">About</h2>
-            <p className="text-gray-200">
+            <div className="text-gray-200">
               tldr; play games, watch sports, chase tech
-            </p>
-            <p className="text-gray-200">
+            </div>
+            <div className="text-gray-200">
               I dive into video games—from strategy to sheer chaos.
-            </p>
-            <p className=" text-gray-200">
+            </div>
+            <div className=" text-gray-200">
               Football and basketball keep me yelling at screens.
-            </p>
-            <p className="text-gray-200">
+            </div>
+            <div className="text-gray-200">
               Finance is my newest obsession—markets, money, and all the madness.
-            </p>
+            </div>
           </div>
         </div>
         {/* Right: Avatar image */}
