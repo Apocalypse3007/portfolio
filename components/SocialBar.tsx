@@ -1,4 +1,4 @@
-import { Home, Github, Linkedin, Mail, X, Twitter } from "lucide-react";
+import { Home, Github, Linkedin, Mail, Twitter } from "lucide-react";
 import { FloatingDock } from "./FloatingDock";
 
 // Define your navigation items for the floating dock

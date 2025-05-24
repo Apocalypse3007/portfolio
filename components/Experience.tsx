@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
+import Image from "next/image";
 
 
 const experiences = [
@@ -21,7 +22,7 @@ export default function Experience() {
             <div key={idx} className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Avatar className="w-12 h-12">
-                  <img src={exp.logo} alt={`${exp.company} logo`} />
+                  <Image src={exp.logo} alt={`${exp.company} logo`} width={48} height={48} />
                 </Avatar>
                 <div>
                   <div className="font-semibold">{exp.company}</div>
