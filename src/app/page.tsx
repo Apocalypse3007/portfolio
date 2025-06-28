@@ -54,7 +54,7 @@ export default function Page() {
             href="https://drive.google.com/file/d/1vJ7wLeZXwkiog24E97Qg-qyDUxEg3dCi/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-lg bg-foreground text-background px-4 py-2 text-sm font-semibold shadow hover:bg-blue-700 transition-colors"
+            className="inline-block rounded-lg bg-foreground text-background px-4 py-2 text-sm font-semibold shadow hover:bg-slate-700 transition-colors"
             aria-label="View Resume (opens in new tab)"
           >
             View Resume

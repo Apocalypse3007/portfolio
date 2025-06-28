@@ -1,0 +1,58 @@
+---
+title: "Scaling-apps"
+summary: "Discussing horizontal,vertical and autoscaling."
+publishedAt: "2025-06-28"
+image: "/some-image.png" # optional
+---
+
+#### Vertical Scaling
+
+Vertical scaling is increasing the size of your machine (by adding number of CPUs and memory) so that the app can handle more load.
+
+Since Node.js is single-threaded, it can only be handled by a single processor/CPU even if multiple CPUs are added. On the other hand, multi-threaded languages like Rust, Go, and Java are able to utilize multiple CPUs due to their multi-threaded nature. It doesn't happen just by writing the code as a developer, you have to divide the logic into multiple small threads that can be picked up by different CPUs to perform the operation.
+
+But vertical scaling also comes with several limitations. First, there’s a physical cap to how much you can upgrade a single machine. Once you hit that limit, you can’t scale any further without changing your architecture. It also creates a single point of failure, if that powerful machine goes down, your entire system becomes unavailable. To mitigate this, you need robust backup, failover, and recovery plans.
+Another issue is downtime. Upgrading the instance type often requires restarting the machine, which may lead to service interruption unless you have proper blue-green or zero-downtime deployment strategies in place.
+It also tends to be cost-inefficient. Larger machines typically cost disproportionately more than smaller ones, and if traffic drops, you still end up paying for unused capacity. To avoid wastage, it's better to schedule resizing or revert to smaller instances when traffic goes down.
+Additionally, if you're running a database on that machine, vertical scaling might only delay the problem. Databases can become bottlenecks even on high-spec machines. In that case, scaling reads using read replicas or splitting the data using sharding strategies becomes essential.
+Overall, while vertical scaling may be simple to set up early on, it becomes harder to maintain as your application grows. That's why systems eventually need to move toward distributed, horizontally scalable architectures when reliability, availability, and flexibility become critical.
+
+
+
+#### Horizontal Scaling
+
+Let’s take Paytm as an example :
+
+Assume we start with 4 AWS EC2 instances, each running several containers to handle user traffic. As user activity increases such as during a festive sale, recharge offers, or movie ticket releases a sudden surge in traffic may overload these servers. In this case, instead of upgrading the hardware of existing servers (which would be vertical scaling), we perform horizontal scaling — that is, we add more servers to share the load. These new servers are automatically added behind a load balancer, which distributes traffic across all instances. The goal is to ensure that no single server is overwhelmed and that latency stays low for all users.
+
+But this architecture is tough when handling stateful data, different users can land on different servers and when the app is stateful then switching servers will cause issues like the user gets logged out, losing in-progress work etc. To fix this, making your app stateless is one of the best options like storing the state in external services like Redis (for sessions, user context).
+
+Load Balancing smartly also matters because not all users or requests are equal. Some operations are heavy (e.g., payments), others are light (e.g., reading FAQs). We can fix this by introducing smarter load balancers with health checks, latency-based routing and weighted load distribution.
+
+Databases are hard to scale so sharding can be implemented to split the data set across multiple DB servers. Using caching (e.g., Redis) to reduce read load.
+
+
+
+
+#### Auto Scaling
+
+Let's take paytm as an example again:
+
+Consider we currently have 4 AWS instances handling our load. Each instance has multiple containers inside running to process the requests. We have central node Aggregate requests/node which monitors the number of requests per second across all the machines. All our AWS instances need to send the requests data to this central node. 
+We will be having a threshold check which provides the limit on how many requests can be currently handled by the current number of AWS instances.  When the scaling threshold is hit, it triggers the scaling action which then forwards the request to the AWS autoscaling group. 
+The autoscaling group are configured to manage the EC2 instances automatically. When the threshold request forwards the request to this group, it increases the number of servers by some amount so that the app is able to handle the high load.
+
+On the other hand if we implement autoscaling to stateful backends(real-time):
+
+The architecture being followed would be same as above but there would be some more complications and difficulties to tackle. Such as in stateless apps, you don't need to preserve the states but in the stateful backends, it is important to preserve the state. 
+
+Scaling down is also a tough task because you need to scale down by draining the existing connections. As we all know, users maintain a persistent connections in a real-time sites so we can't just terminate the server when scaling down. The better method would be to stop accepting any new users on the server, let the existing users finish their ongoing session and then terminate the server.
+
+It might also happen the users try to connect to a new server which isn't ready completely, so the user won't be able to connect which would be a bad experience so better option here would be only redirect the new connections when the server is completely ready to handle the new upcoming requests.
+You also need to track how many users are connected across all servers to decide when to scale, which is usually done using a shared Redis or custom metric system.  
+Messages from one user might need to reach users on other servers, so using a pub/sub system like Redis or Kafka helps all servers stay in sync.  
+
+Since users stay connected persistently, it’s important that they always reconnect to the same server using sticky sessions or in-app routing logic.
+
+You also need to ensure that newly scaled servers are only added to the load balancer after they’ve fully initialized by using health checks or readiness probes. Scaling decisions should also consider warm-up time, as new instances may not be instantly available to serve users. On scale-down, draining connections gracefully is critical to avoid user drop-offs. Load distribution should be monitored carefully, as uneven connection patterns can cause performance issues. In some cases, persisting session state in Redis or external databases helps users reconnect even if the original server is no longer available. Combining connection metrics with CPU, memory, and queue depth provides a more reliable autoscaling trigger.
+
